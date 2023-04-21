@@ -165,8 +165,6 @@ int main(int argc, char **argv)
     fprintf(stderr, "Could not allocate video frame\n");
     exit(1);
   }
-  frame->width = 640;
-  frame->height = 360;
 
   do
   {
