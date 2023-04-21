@@ -59,7 +59,7 @@ static void decode(AVCodecContext *dec_ctx, AVFrame *frame, AVPacket *pkt,
   ret = avcodec_send_packet(dec_ctx, pkt);
   if (ret < 0)
   {
-    fprintf(stderr, "Error sending a packet for decoding\n");
+    fprintf(stderr, "Error sending a packet for decoding\n  %s \n", av_err2str(ret));
     exit(1);
   }
 
@@ -88,6 +88,8 @@ static void decode(AVCodecContext *dec_ctx, AVFrame *frame, AVPacket *pkt,
 int main(int argc, char **argv)
 {
   const char *filename, *outfilename;
+  // const char *filename = "./test.mp4";
+  // const char *outfilename = "./a";
   const AVCodec *codec;
   AVCodecParserContext *parser;
   AVCodecContext *c = NULL;
@@ -100,13 +102,13 @@ int main(int argc, char **argv)
   int eof;
   AVPacket *pkt;
 
-  if (argc <= 2)
-  {
-    fprintf(stderr, "Usage: %s <input file> <output file>\n"
-                    "And check your input file is encoded by mpeg1video please.\n",
-            argv[0]);
-    exit(0);
-  }
+  // if (argc <= 2)
+  // {
+  //   fprintf(stderr, "Usage: %s <input file> <output file>\n"
+  //                   "And check your input file is encoded by mpeg1video please.\n",
+  //           argv[0]);
+  //   exit(0);
+  // }
   filename = argv[1];
   outfilename = argv[2];
 
@@ -163,6 +165,8 @@ int main(int argc, char **argv)
     fprintf(stderr, "Could not allocate video frame\n");
     exit(1);
   }
+  frame->width = 640;
+  frame->height = 360;
 
   do
   {
